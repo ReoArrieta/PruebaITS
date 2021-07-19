@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+<h1 class="title">Salidas</h1>
+<div class="container table-responsive">
+  <table class="table table-striped">
+    <thead class="bg-primary">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Producto</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let output of outputs">
+        <th scope="row">{{ output.id }}</th>
+        <td>{{ output.product }}</td>
+        <td>{{ output.quantity }}</td>
+        <td>{{ output.username }}</td>
+        <td>{{ output.date | date: "dd/MM/yyyy" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

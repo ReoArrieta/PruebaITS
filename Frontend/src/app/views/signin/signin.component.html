@@ -1,0 +1,37 @@
+<div class="col-md-4 offset-md-4">
+  <div class="card card-body">
+    <h4 class="title">Iniciar sesión</h4>
+    <form
+      [formGroup]="formSignin"
+      autocomplete="off"
+      (ngSubmit)="signin(formSignin.value)"
+    >
+      <div class="form-group">
+        <label>Correo</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="email"
+          placeholder="Ej. pepito@its.com"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="********"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <a routerLink="/registrarse">¿No tienes cuenta? - Registrate</a>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="loading">
+        {{ loading ? 'Cargando...' : 'Ingresar'}}
+      </button>
+    </form>
+  </div>
+</div>

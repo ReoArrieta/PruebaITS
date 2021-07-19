@@ -1,0 +1,174 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h1 class="title">Productos</h1>
+  <br />
+  <div class="row">
+    <div *ngFor="let product of products" class="col">
+      <div
+        [ngClass]="product.idState == 1 ? 'card bg-primary' : 'card bg-danger'"
+        style="width: 18rem"
+      >
+        <button
+          type="button"
+          class="btn"
+          (click)="productModal(product)"
+          data-toggle="modal"
+          data-target="#productModal"
+        >
+          <img src="{{ product.image }}" class="card-img-top" />
+        </button>
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">Código: {{ product.id }}</p>
+          <p class="card-text">Cantidad: {{ product.quantity }}</p>
+
+          <button
+            type="button"
+            class="btn btn-secondary btn-block"
+            (click)="outputModal(product)"
+            data-toggle="modal"
+            data-target="#outputModal"
+          >
+            Salida
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Product -->
+<div
+  class="modal fade"
+  id="productModal"
+  tabindex="-1"
+  aria-labelledby="productModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalLabel">Productos</h5>
+      </div>
+      <form
+        [formGroup]="formProduct"
+        autocomplete="off"
+        *ngIf="!send; else sendView"
+      >
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Imagen</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="image"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select class="form-control" formControlName="idState">
+              <option value="1">Óptimo</option>
+              <option value="2">Defectuoso</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary btn-block"
+            (click)="update(formProduct.value)"
+          >
+            Actualizar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ng-template #sendView>
+    <div class="modal-body">
+      <div class="alert alert-success" role="alert">
+        Producto actualizado correctamente
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-primary btn-block"
+        (click)="closeModal()"
+        data-dismiss="modal"
+      >
+        Cerrar
+      </button>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Modal Output -->
+<div
+  class="modal fade"
+  id="outputModal"
+  tabindex="-1"
+  aria-labelledby="outputModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="outputModalLabel">Salida</h5>
+      </div>
+      <form
+        [formGroup]="formOutput"
+        autocomplete="off"
+        *ngIf="!send; else sendView"
+      >
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Cantidad</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="quantity"
+              required
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary btn-block"
+            (click)="output(formOutput.value)"
+          >
+            Salida
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ng-template #sendOutputView>
+    <div class="modal-body">
+      <div class="alert alert-success" role="alert">
+        Salida de producto correctamente
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-primary btn-block"
+        (click)="closeModal()"
+        data-dismiss="modal"
+      >
+        Cerrar
+      </button>
+    </div>
+  </ng-template>  
+</div>

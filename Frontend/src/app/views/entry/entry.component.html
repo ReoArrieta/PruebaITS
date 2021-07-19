@@ -1,0 +1,121 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h1 class="title">Entradas</h1>
+  <button
+  type="button"
+  class="btn btn-primary"
+  (click)="productModal()"
+  data-toggle="modal"
+  data-target="#productModal"
+>
+  Agregar Entrada
+</button>
+</div>
+<br />
+<div class="container table-responsive">
+  <table class="table table-striped">
+    <thead class="bg-primary">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Producto</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entrie of entries">
+        <th scope="row">{{ entrie.id }}</th>
+        <td>{{ entrie.product }}</td>
+        <td>{{ entrie.quantity }}</td>
+        <td>{{ entrie.username }}</td>
+        <td>{{ entrie.date | date: "dd/MM/yyyy" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal Product -->
+<div
+  class="modal fade"
+  id="productModal"
+  tabindex="-1"
+  aria-labelledby="productModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalLabel">Productos</h5>
+      </div>
+      <form
+        [formGroup]="formEntry"
+        autocomplete="off"
+        *ngIf="!send; else sendView"
+      >
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Cantidad</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="quantity"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Imagen</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="image"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select class="form-control" formControlName="idState">
+              <option value="1">Óptimo</option>
+              <option value="2">Defectuoso</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary btn-block"
+            (click)="create(formEntry.value)"
+          >
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <ng-template #sendView>
+    <div class="modal-body">
+      <div class="alert alert-success" role="alert">
+        Producto guardado correctamente
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-primary btn-block"
+        (click)="closeModal()"
+        data-dismiss="modal"
+      >
+        Cerrar
+      </button>
+    </div>
+  </ng-template>
+</div>
